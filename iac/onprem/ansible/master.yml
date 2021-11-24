@@ -1,0 +1,30 @@
+---
+- name: Kubeadm configuration
+  hosts: kmasters
+  tasks:
+    - name: Kubeadm Config Images
+      shell: kubeadm config images pull
+      become: yes
+
+    - name: Kubeadm Init Control Plane
+      shell: kubeadm init --apiserver-advertise-address=192.168.122.100 --pod-network-cidr=10.0.0.0/16 >> /home/k8s/kubeinit.log
+      become: yes
+
+    - name: Wait for port service running
+      wait_for:
+        port: 6443
+        delay: 10
+    
+    - name: Kubeadm Deploy Calico Network
+      shell: kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectcalico.org/v3.18/manifests/calico.yaml
+      become: yes
+
+    - name: Kubeadm Create join command
+      shell: kubeadm token create --print-join-command > /home/k8s/joincluster.sh
+      become: yes
+
+    - name: Fetch join command
+      ansible.builtin.fetch:
+        src: /home/k8s/joincluster.sh
+        dest: joincluster.sh
+        flat: yes

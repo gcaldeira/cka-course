@@ -1,0 +1,8 @@
+---
+- name: Kubeadm configuration
+  hosts: kworkers
+  tasks:
+
+    - name: Run join command
+      become: yes
+      ansible.builtin.script: joincluster.sh

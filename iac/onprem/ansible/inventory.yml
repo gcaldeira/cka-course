@@ -1,0 +1,15 @@
+---
+kmasters:
+  hosts:
+    kmaster:
+      ansible_host: kmaster
+      ansible_user: k8s
+
+kworkers:
+  hosts:
+    kworker1:
+      ansible_host: kworker1
+      ansible_user: k8s
+    kworker2:
+      ansible_host: kworker2
+      ansible_user: k8s

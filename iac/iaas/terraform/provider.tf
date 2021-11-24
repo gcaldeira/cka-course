@@ -8,7 +8,7 @@ terraform {
 
   backend "azurerm" {
     resource_group_name  = "rg-cka-iac"
-    storage_account_name = "ckaiacstorageaccount"
+    storage_account_name = "spyckaiac"
     container_name       = "tfstate"
     key                  = "iaas/terraform.tfstate"
   }

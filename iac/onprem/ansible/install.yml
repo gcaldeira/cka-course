@@ -1,0 +1,8 @@
+- name: Base tasks
+  include: base.yml
+
+- name: Master tasks
+  include: master.yml
+
+- name: Worker tasks
+  include: worker.yml

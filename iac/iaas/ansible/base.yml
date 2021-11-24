@@ -1,0 +1,82 @@
+---
+- name: Network Configuration
+  hosts: all
+  tasks:
+    - name: Add mappings to /etc/hosts
+      become: yes
+      blockinfile:
+        path: /etc/hosts
+        block: |
+          {{ item.ip }} {{ item.name }}
+        marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+      loop:
+        - { name: kmaster,  ip: 10.0.64.101 }
+        - { name: kworker1, ip: 10.0.64.201 }
+        - { name: kworker2, ip: 10.0.64.202 }
+
+- name: Kernel Configuration
+  hosts: all
+  tasks:
+    - name: Config modules
+      become: yes
+      copy:
+        dest: "/etc/modules-load.d/containerd.conf"
+        content: |
+          overlay
+          br_netfilter
+
+    - name: Load modules
+      become: yes
+      community.general.modprobe:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - overlay
+        - br_netfilter
+    
+    - name: Kernel settings
+      become: yes
+      copy:
+        dest: "/etc/sysctl.d/kubernetes.conf"
+        content: |
+          net.bridge.bridge-nf-call-ip6tables = 1
+          net.bridge.bridge-nf-call-iptables  = 1
+          net.ipv4.ip_forward                 = 1
+      register: kernel_settings
+
+    - name: Reload sysctl
+      shell: sysctl --system
+      become: yes
+      when: kernel_settings.changed
+
+    - name: Install base packages
+      become: yes
+      apt:
+        pkg:
+        - containerd
+        - apt-transport-https
+        - ca-certificates
+        - curl
+    
+    - name: Base config for containerd
+      become: yes
+      shell: mkdir -p /etc/containerd && containerd config default > /etc/containerd/config.toml
+    
+    - name: Restart containerd
+      become: yes
+      ansible.builtin.service:
+        name: containerd
+        state: restarted
+
+    - name: Add google repos
+      shell: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add && apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+      become: yes
+    
+    - name: Install k8s packages
+      become: yes
+      apt:
+        update_cache: yes
+        pkg:
+        - kubelet=1.22.0-00
+        - kubeadm=1.22.0-00
+        - kubectl=1.22.0-00

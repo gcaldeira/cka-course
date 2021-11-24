@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>CKA Preparation</title>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans|PT+Sans+Narrow|PT+Mono' rel='stylesheet' type='text/css'>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="spycode/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="spycode/css/screen.css">
+    
+    
+    <!-- /Styles -->
+</head>
+<body class="list">
+    
+      <!-- slide source: pt-BR/01-presentation.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>CKA Preparation</h1></header>
+                
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/01-presentation.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Visão Geral</h1></header>
+                
+                
+                    <section class="slide-content"><p>O objetivo deste conteúdo é apresentar de forma teórica e prática...</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/01-presentation.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Dinâmica do curso</h1></header>
+                
+                
+                    <section class="slide-content"><p>Neste curso vamos...</p></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/01-presentation.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h2>Grade</h2></header>
+                
+                
+                    <section class="slide-content"><h2>- Criando um cluster kubeadm</h2></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/02-pre-reqs.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Pré requisitos</h1></header>
+                
+                
+                    <section class="slide-content"><p>Para uma execução fluida do curso recomendamos o uso de <a href="https://ubuntu.com/download/desktop">S.O. Ubuntu Linux</a>, que é distribuição muito popular e de fácil configuração e utilização. Como ambiente de Cloud utilizaremos o <a href="https://azure.microsoft.com/pt-br/">Microsoft Azure</a>, então você precisará criar uma conta, além das seguintes <strong>ferramentas</strong>:</p>
+<ul>
+<li><a href="https://git-scm.com/">git</a></li>
+<li><a href="https://docs.microsoft.com/pt-br/aspnet/core/?view=aspnetcore-5.0">aspnetcode-5.0</a></li>
+<li><a href="https://code.visualstudio.com/">vscode</a></li>
+<li><a href="https://www.postgresql.org/">postgresql</a></li>
+<li><a href="https://dbeaver.io/download/">dbeaver</a></li>
+<li><a href="https://docs.microsoft.com/pt-br/cli/azure/install-azure-cli">azure-cli</a></li>
+<li><a href="https://www.terraform.io/">terraform</a></li>
+<li><a href="https://www.ansible.com/">ansible</a></li>
+</ul></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/02-pre-reqs.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Configurando o ambiente</h1></header>
+                
+                
+                    <section class="slide-content"><h3>Git</h3>
+<p>No terminal execute os seguintes comandos:</p>
+<pre><code>sudo apt install git-all
+git config --global user.name "Seu Nome"
+git config --global user.email seu-email@spycode.io
+ssh-keygen -t rsa -C "seu-email@spycode.io"
+</code></pre>
+<h3>ASP.Net Core</h3>
+<p>No terminal execute os seguintes comandos:</p>
+<pre><code>wget https://packages.microsoft.com/config/ubuntu/20.10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+sudo apt update &amp;&amp; sudo apt install y apt-transport-https &amp;&amp; sudo apt update &amp;&amp; sudo apt install -y dotnet-sdk-5.0
+</code></pre></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/02-pre-reqs.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Configurando o ambiente</h1></header>
+                
+                
+                    <section class="slide-content"><h3>VS Code</h3>
+<p>Acesse a página <a href="https://code.visualstudio.com/#">https://code.visualstudio.com/</a> e faça o download do pacote de instalação .deb</p>
+<p>No terminal execute os seguintes comandos na pasta do download:</p>
+<pre><code>sudo dpkg -i code_1.59.0-1628120042_amd64.deb
+rm code_1.59.0-1628120042_amd64.deb
+</code></pre>
+<h3>PostgreSQL</h3>
+<p>No terminal execute os seguintes comandos:</p>
+<pre><code>sudo apt install postgresql postgresql-contrib
+sudo -u postgres psql
+postgres=# ALTER USER postgres PASSWORD 'postgres';
+postgres=# \q;
+</code></pre></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/02-pre-reqs.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Configurando o ambiente</h1></header>
+                
+                
+                    <section class="slide-content"><h3>DBEaver</h3>
+<p>Acesse a página <a href="https://dbeaver.io/download/">https://dbeaver.io/download/</a> e faça o download do pacote .net Community Edition</p>
+<pre><code>sudo dpkg -i dbeaver-ce_21.1.4_amd64.deb
+rm dbeaver-ce_21.1.4_amd64.deb
+</code></pre>
+<h3>Azure cli</h3>
+<p>No terminal execute os seguintes comandos:</p>
+<pre><code>sudo apt install ca-certificates curl apt-transport-https lsb-release gnupg
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+</code></pre></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/02-pre-reqs.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Configurando o ambiente</h1></header>
+                
+                
+                    <section class="slide-content"><h3>Terraform</h3>
+<p>No terminal execute os seguintes comandos:</p>
+<pre><code>curl https://releases.hashicorp.com/terraform/1.0.4/terraform_1.0.4_linux_amd64.zip --output terraform_1.0.4_linux_amd64.zip
+unzip terraform_1.0.4_linux_amd64.zip
+sudo mv terraform /usr/local/bin
+</code></pre>
+<h3>Ansible</h3>
+<p>No terminal execute os seguintes comandos:</p>
+<pre><code>sudo apt install ansible
+</code></pre></section>
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/03-cluster-creation.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Pré requisitos</h1></header>
+                
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/03-cluster-creation.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Configurando o ambiente</h1></header>
+                
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/03-cluster-creation.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Configurando o ambiente</h1></header>
+                
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/03-cluster-creation.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Configurando o ambiente</h1></header>
+                
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+      <!-- slide source: pt-BR/03-cluster-creation.md -->
+        <section class="slide">
+            <div>
+                
+                    <header><h1>Configurando o ambiente</h1></header>
+                
+                
+                <div class="presenter_notes">
+                    <section>
+                    
+                    </section>
+                </div>
+            </div>
+        </section>
+     
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"><div></div></div>
+    <!-- Javascripts -->
+        
+        <script type="text/javascript" src="spycode/js/slides.js"></script>
+        
+        
+    <!-- /Javascripts -->
+
+	<!-- Copyright © 2010–2012 Vadim Makeev — pepelsbey.net -->
+</body>
+</html>
